@@ -3,8 +3,8 @@
 @section('content')
 <div class="container">
     @include('admin.projects.partials.editCreate', [
-        'method' => 'POST',
-        'routeName' => 'admin.projects.store'
+        'method' => 'PUT',
+        'routeName' => 'admin.projects.update'
         ])
 </div>
 @endsection

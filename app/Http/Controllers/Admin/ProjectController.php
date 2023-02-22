@@ -7,9 +7,15 @@ use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 
 class ProjectController extends Controller
 {
+    protected $validationRules = [
+        'title' => ['required', 'unique:projects' ],
+        'post_date' => 'required',
+        'content' => 'required'
+    ];
     /**
      * Display a listing of the resource.
      *
@@ -28,7 +34,7 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        return view('admin.projects.create');
+        return view('admin.projects.create', ["project" => new Project()]);
     }
 
     /**
@@ -39,19 +45,14 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        //dd($request->all());
-        $data = $request->validate([
-            'title' => 'required|unique:projects',
-            'project_date' => 'required',
-            'content' => 'required'
-        ]);
+        $data = $request->validate($this->validationRules);
         //$data['author'] = Auth::user()->name;
         $data['slug'] = Str::slug($data['title']);
         $newProject = new Project();
         $newProject->fill($data);
         $newProject->save();
 
-        return redirect()->route('admin.projects.index')->with('message', "Project $newProject->title has been created succesfully");
+        return redirect()->route('admin.projects.index');
     }
 
     /**
@@ -73,7 +74,7 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        //
+        return view('admin.projects.edit', [ 'project' => $project] );
     }
 
     /**
@@ -85,7 +86,13 @@ class ProjectController extends Controller
      */
     public function update(Request $request, Project $project)
     {
-        //
+        $data = $request->validate([
+            'title' => ['required', Rule::unique('projects')->ignore($project->id) ],
+            'project_date' => 'required',
+            'content' => 'required'
+        ]);
+        $project->update($data);
+        return redirect()->route('admin.projects.show', compact('project'));
     }
 
     /**

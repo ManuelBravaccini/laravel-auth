@@ -13,7 +13,7 @@
             <p class="card-text mb-4">
                 {{ $project->content }}
             </p>
-            <a href="#" class="btn btn-success">
+            <a href="{{ route('admin.projects.edit', $project->id) }}" class="btn btn-success">
                 Edit
             </a>
             <a href="#" class="btn btn-danger">

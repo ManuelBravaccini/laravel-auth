@@ -26,7 +26,7 @@
                         Show
                     </a>
 
-                    <a href="" class="btn btn-sm btn-success">
+                    <a href="{{ route('admin.projects.edit', $project->id) }}" class="btn btn-sm btn-success">
                         Edit
                     </a>
 
