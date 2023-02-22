@@ -12,25 +12,25 @@
 
 
         <div class="mb-3">
-            <label for="post_title" class="form-label">Project title</label>
-            <input type="text" class="form-control" id="post_title" placeholder="Insert project's title" name="title">
+            <label for="project_title" class="form-label">Project title</label>
+            <input type="text" class="form-control" id="project_title" placeholder="Insert project's title" name="title">
         </div>
 
         <div class="mb-3">
-            <label for="post_date" class="form-label">Project date</label>
-            <input type="date" class="form-control" id="post_date" name="post_date">
+            <label for="project_date" class="form-label">Project date</label>
+            <input type="date" class="form-control" id="project_date" name="project_date">
         </div>
 
 
         <div class="mb-3">
-            <label for="post_content" class="form-label">Project content</label>
-            <textarea class="form-control" id="post_content" rows="5" name="content"></textarea>
+            <label for="project_content" class="form-label">Project content</label>
+            <textarea class="form-control" id="project_content" rows="5" name="content"></textarea>
         </div>
 
 
         <div class="mb-3">
             <button type="submit" class="btn btn-primary">
-                Create new post
+                Create new project
             </button>
         </div>
     </form>
