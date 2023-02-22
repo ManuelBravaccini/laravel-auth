@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <div class="card text-center">
+    <div class="card text-center mt-5">
         <div class="card-header">
             {{ $project->title }}
         </div>
@@ -16,10 +16,14 @@
             <a href="{{ route('admin.projects.edit', $project->id) }}" class="btn btn-success">
                 Edit
             </a>
-            <a href="#" class="btn btn-danger">
-                Delete this project
-                {{-- TODO: fare un form --}}
-            </a>
+            <form action="{{ route('admin.projects.destroy', $project->id) }}" method="POST" class="d-inline-block">
+                @csrf
+                @method('DELETE')
+
+                <button type="submit" class="btn btn-danger">
+                    Delete
+                </button>
+            </form>
         </div>
         <div class="card-footer text-muted">
             {{ $project->project_date }}

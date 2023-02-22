@@ -30,10 +30,14 @@
                         Edit
                     </a>
 
-                    <a href="" class="btn btn-sm btn-danger">
-                        Delete
-                        {{-- TODO FARE UN FORM --}}
-                    </a>
+                    <form action="{{ route('admin.projects.destroy', $project->id) }}" method="POST" class="d-inline-block">
+                        @csrf
+                        @method('DELETE')
+
+                        <button type="submit" class="btn btn-sm btn-danger">
+                            Delete
+                        </button>
+                    </form>
                 </td>
                 {{-- per ogni post --}}
             </tr>

@@ -92,6 +92,7 @@ class ProjectController extends Controller
             'content' => 'required'
         ]);
         $project->update($data);
+
         return redirect()->route('admin.projects.show', compact('project'));
     }
 
@@ -103,6 +104,9 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
-        //
+        //dd($project);
+        $project->delete();
+
+        return redirect()->route('admin.projects.index');
     }
 }
