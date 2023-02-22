@@ -39,7 +39,20 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Project::create($request->all());
+        //dd($request->all());
+        $data = $request->validate([
+            'title' => 'required|unique:projects',
+            'project_date' => 'required',
+            'content' => 'required'
+        ]);
+        //$data['author'] = Auth::user()->name;
+        //$data['slug'] = Str::slug($data['title']);
+        $newProject = new Project();
+        $newProject->fill($data);
+        $newProject->save();
+
+        return redirect()->route('admin.projects.index')->with('message', "Project $newProject->title has been created succesfully");
     }
 
     /**

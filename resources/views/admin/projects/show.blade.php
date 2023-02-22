@@ -17,7 +17,7 @@
                 Edit
             </a>
             <a href="#" class="btn btn-danger">
-                Delete this posts
+                Delete this project
                 {{-- TODO: fare un form --}}
             </a>
         </div>
