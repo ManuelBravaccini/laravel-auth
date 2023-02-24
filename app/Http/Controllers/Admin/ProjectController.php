@@ -92,19 +92,21 @@ class ProjectController extends Controller
         $data = $request->validate([
             'title' => ['required', Rule::unique('projects')->ignore($project->id) ],
             'project_date' => 'required',
-            'content' => 'required'
+            'content' => 'required',
+            'image' => 'required|image|max:1024' // Max file size 1 MB
         ]);
         
-        $project->update($data);
-
+        
         if ($request->hasFile('image')){
-
+            
             if (!$project->isImageAUrl()){
                 Storage::delete($project->image);
             }
-
-            $data['image'] =  Storage::put('imgs/', $data['image']);
+            
+            $data['image'] =  Storage::put('uploads', $data['image']);
         }
+
+        $project->update($data);
 
         return redirect()->route('admin.projects.show', compact('project'));
     }

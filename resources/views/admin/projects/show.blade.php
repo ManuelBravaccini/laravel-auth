@@ -14,15 +14,12 @@
                 {{ $project->content }}
             </p>
             <div class="card-image mb-4">
-                <!--
-                    @if ( $project->isImageAUrl())
-                        <img src="{{ $project->image }}"
-                    @else
-                        <img src="{{ asset('storage/' . $project->image ) }}"
-                    @endif
-                    alt="{{ $project->title }} image" class="img-fluid">
-                -->
-                <img src="{{ asset('storage/' . $project->image ) }}" alt="{{ $project->title }} image" class="img-fluid">>
+                @if ( $project->isImageAUrl())
+                    <img src="{{ $project->image }}"
+                @else
+                    <img src="{{ asset('storage/uploads/' . $project->image ) }}"
+                @endif
+                alt="{{ $project->title }} image" class="img-fluid">
             </div>
             <a href="{{ route('admin.projects.edit', $project->id) }}" class="btn btn-success">
                 Edit
