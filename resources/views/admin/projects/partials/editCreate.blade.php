@@ -1,4 +1,4 @@
-<form action="{{ route($routeName, $project) }}" method="POST" class="p-5">
+<form action="{{ route($routeName, $project) }}" method="POST" class="p-5" enctype="multipart/form-data">
     @csrf
     @method($method)
 
@@ -29,12 +29,18 @@
 
     <div class="mb-3">
         <label for="project_date" class="form-label">Project date</label>
-        <input type="datetime" class="form-control" id="project_date" name="project_date" value="{{ old('project_date', $project->project_date) }}">
+        <input type="date" class="form-control" id="project_date" name="project_date" value="{{ old('project_date', $project->project_date) }}">
     </div>
 
     <div class="mb-3">
         <label for="project_content" class="form-label">Project content</label>
         <textarea class="form-control" id="project_content" rows="5" name="content">{{ old('content', $project->content) }}</textarea>
+    </div>
+<!--
+-->
+    <div class="mb-3">
+        <label for="project_image" class="form-label">Project image</label>
+        <input type="file" class="form-control" id="project_image" name="image" value="{{ old('image', $project->image) }}">
     </div>
 
     <div class="mb-3">

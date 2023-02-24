@@ -8,13 +8,15 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Storage;
 
 class ProjectController extends Controller
 {
     protected $validationRules = [
         'title' => ['required', 'unique:projects' ],
-        'post_date' => 'required',
-        'content' => 'required'
+        'project_date' => 'required',
+        'content' => 'required',
+        'image' => 'required|image|max:1024' // Max file size 1 MB
     ];
     /**
      * Display a listing of the resource.
@@ -48,6 +50,7 @@ class ProjectController extends Controller
         $data = $request->validate($this->validationRules);
         //$data['author'] = Auth::user()->name;
         $data['slug'] = Str::slug($data['title']);
+        $data['image'] =  Storage::put('uploads', $data['image']);
         $newProject = new Project();
         $newProject->fill($data);
         $newProject->save();
@@ -91,7 +94,17 @@ class ProjectController extends Controller
             'project_date' => 'required',
             'content' => 'required'
         ]);
+        
         $project->update($data);
+
+        if ($request->hasFile('image')){
+
+            if (!$project->isImageAUrl()){
+                Storage::delete($project->image);
+            }
+
+            $data['image'] =  Storage::put('imgs/', $data['image']);
+        }
 
         return redirect()->route('admin.projects.show', compact('project'));
     }
@@ -105,6 +118,10 @@ class ProjectController extends Controller
     public function destroy(Project $project)
     {
         //dd($project);
+        if (!$project->isImageAUrl()) {
+            Storage::delete($project->image);
+        }
+
         $project->delete();
 
         return redirect()->route('admin.projects.index');

@@ -10,6 +10,10 @@ class Project extends Model
     use HasFactory;
 
     protected $fillable = [
-        'title', 'slug', 'project_date', 'content'
+        'title', 'slug', 'project_date', 'content', 'image'
     ];
+
+    public function isImageAUrl(){
+        return filter_var($this->image, FILTER_VALIDATE_URL);
+    }
 }

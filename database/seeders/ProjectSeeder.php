@@ -7,6 +7,7 @@ use Faker\Generator as Faker;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 class ProjectSeeder extends Seeder
 {
@@ -23,6 +24,7 @@ class ProjectSeeder extends Seeder
             $newProject->slug = Str::of($newProject->title)->slug('-');
             $newProject->project_date = $faker->date();
             $newProject->content = $faker->text(200);
+            $newProject->image = $faker->unique()->imageUrl();
             $newProject->save();
         }
     }
